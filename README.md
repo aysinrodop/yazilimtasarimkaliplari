@@ -1,1 +1,0 @@
-# yazilimtasarimkaliplari
