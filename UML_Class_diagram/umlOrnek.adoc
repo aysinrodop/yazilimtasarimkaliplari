@@ -1,0 +1,43 @@
+[uml,file="fa11e81c2effe71c.png"]
+--
+@startuml
+Class Musteri{
+-İsim
+}
+
+Class Siparis{
+-Tarih
+-GönderimDurumu
++Hesapla()
+}
+
+Class Odeme{
++Miktar
+}
+
+Class Siparis_Detay{
+-Kilo
+-Adet
++getAdet(int)
++getKilo(float)
+}
+
+Class KrediKarti{
+-KartNo
+-İsim
+-SonKulTar
++getSonuc(boolean)
+}
+
+Class Nakit{
+-Para
++getUcretAl(float)
+}
+
+Musteri "1" -- "1..*" Siparis
+Siparis "1" --> "1..*" Odeme
+Siparis "1" o-- "1..*" Siparis_Detay
+Odeme <|-- KrediKarti
+Odeme <|-- Nakit
+@enduml
+--
