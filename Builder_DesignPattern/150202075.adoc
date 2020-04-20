@@ -1,0 +1,129 @@
+= BUILDER DESİGN PATTERN
+
+== Builder Tasarım Kalıbı
+
+Builder (Kurucu) Tasarım Deseni karmaşık yapıdaki nesnelerin oluşturulmasında, istemcinin nesne tipi belirterek üretimi gerçekleştirilebilmesini sağlamak için kullanılır. 
+ 
+CAUTION: Builder Tasarım Kalıbı Ne Zaman Kullanılır?
+
+ * **Problem 1** : Çok fazla parametre alan obje varsa
+ * **Problem 2** : Farklı parametre kombinasyonlarına sahip birden çok constructor varsa
+ * **Problem 3** : Nesnenin oluşturulduktan sonra değişmez (immutable) olması isteniyorsa
+
+Eğer bir objeyi yaratırken bu objenin minimum parametre setiniz ile yaratılmasını ve bu alanların yaratıldığı andaki gibi kalmasını istiyorsanız Builder tasarım kalıbını kullanabilirsiniz.
+
+
+----
+public class Main {
+
+	public static void main(String[] args) {
+		
+		Telefon tel1 = new Telefon.TelefonBuilder("kirmizi", "xiaomi", 64)
+                       .kablosuzSarj(true)
+                       .radyo(true)
+                       .build();
+              
+
+        Telefon tel2 = new Telefon.TelefonBuilder("mavi", "samsung" , 128)
+                .nfc(true)
+                .piksel(true)
+                .kablosuzSarj(true)
+                .build();
+
+
+
+        System.out.println(tel1);
+        System.out.println(tel2);
+	}
+}
+----
+
+----
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		Telefon tel1 = new Telefon.TelefonBuilder("kirmizi", "xiaomi", 64)
+                       .kablosuzSarj(true)
+                       .radyo(true)
+                       .build();
+              
+
+        Telefon tel2 = new Telefon.TelefonBuilder("mavi", "samsung" , 128)
+                .nfc(true)
+                .piksel(true)
+                .kablosuzSarj(true)
+                .build();
+
+
+
+        System.out.println(tel1);
+        System.out.println(tel2);
+
+
+	}
+
+}
+
+----
+
+
+
+
+
+[uml,file=17b4110e12474d9e.png]
+--
+
+@startuml
+Class Telefon{
+-renk:String 
+-hafiza:int
+-marka:String 
+-bluetooth: boolean
+-radyo: boolean
+-nfc: boolean
+-kablosuzSarj: boolean
++Telefon(TelefonBuilder)
++getRenk():String 
++getHafiza():int
++getMarka():String 
++isBluetooth():boolean
++isRadyo():boolean
++isNfc():boolean
++isKablosuzSarj():boolean
++toString() : String
+}
+
+Class TelefonBuilder{
+-renk:String 
+-hafiza:int
+-marka:String 
+-bluetooth: boolean
+-radyo: boolean
+-nfc: boolean
+-kablosuzSarj:boolean
++TelefonBuilder(String,String,int)
++isBluetooth(boolean):TelefonBuilder
++isRadyo(boolean):TelefonBuilder
++isNfc(boolean):TelefonBuilder
++isKablosuzSarj(boolean):TelefonBuilder
++build():Telefon
+}
+
+
+
+Telefon +-- TelefonBuilder
+
+
+@enduml
+
+--
+
+
+
+
+
+
+
+
